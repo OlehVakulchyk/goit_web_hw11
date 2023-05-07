@@ -1,5 +1,4 @@
-from typing import Annotated
-from fastapi import FastAPI, Depends, HTTPException, Request, Query
+from fastapi import FastAPI, Depends, HTTPException
 from sqlalchemy.orm import Session
 from sqlalchemy import text
 
@@ -14,12 +13,6 @@ app.include_router(users.router, prefix='/api')
 @app.get("/")
 def read_root():
     return {"message": "This is Adressbook"}
-
-
-# @app.get("/items/")
-# async def read_items(q: Annotated[list[str] | None, Query()] = None):
-#     query_items = {"q": q}
-#     return query_items
 
 
 @app.get("/api/healthchecker")
