@@ -6,13 +6,9 @@ from goit_web_hw11.schemas import UserModel
 
 NEXT_DAYS = 7
 
-async def get_users(limit: int, offset: int, db: Session,
-                    user_name: str | None = None):
+async def get_users(limit: int, offset: int, db: Session):
     users = db.query(User).limit(limit).offset(offset)
-    if user_name:
-        users = users.filter_by(name=user_name).all()
-    else:
-       return users.all()
+    return users.all()
 
 
 async def get_user_by_id(user_id: int, db: Session):
@@ -57,7 +53,8 @@ async def get_users_by_email(user_email: str, db: Session):
 
 
 async def create(body: UserModel, db: Session):
-    user = User(**body.dict())  
+    user = User(**body.dict())
+    print(user) 
     db.add(user)
     db.commit()
     return user
